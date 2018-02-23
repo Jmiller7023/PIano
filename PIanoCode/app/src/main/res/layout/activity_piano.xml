@@ -2,20 +2,106 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/buttons"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.pianocode.PIanoActivity">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/key1"
         android:layout_width="324dp"
         android:layout_height="67dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="a1key"
         android:onClick="playSound"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageButton
+        android:id="@+id/key2"
+        android:layout_width="324dp"
+        android:layout_height="77dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="a2key"
+        android:onClick="playSound"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/key1"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageButton
+        android:id="@+id/key3"
+        android:layout_width="324dp"
+        android:layout_height="77dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="a3key"
+        android:onClick="playSound"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/key2"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageButton
+        android:id="@+id/key4"
+        android:layout_width="324dp"
+        android:layout_height="77dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="a4key"
+        android:onClick="playSound"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/key3"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageButton
+        android:id="@+id/key5"
+        android:layout_width="324dp"
+        android:layout_height="77dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="a5key"
+        android:onClick="playSound"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/key4"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageButton
+        android:id="@+id/key6"
+        android:layout_width="324dp"
+        android:layout_height="77dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="a6key"
+        android:onClick="playSound"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/key5"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageButton
+        android:id="@+id/key7"
+        android:layout_width="324dp"
+        android:layout_height="77dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="a7key"
+        android:onClick="playSound"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/key6"
         app:srcCompat="@android:color/background_light" />
 </android.support.constraint.ConstraintLayout>
