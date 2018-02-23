@@ -1,6 +1,7 @@
 package com.example.user.pianocode;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = findViewById(R.id.editText);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    public void openPIano(View view){
+        Intent intent = new Intent(this, PIanoActivity.class);
         startActivity(intent);
     }
 
