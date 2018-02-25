@@ -47,4 +47,31 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openGroupPIano(View view){
+
+        Toast.makeText(this, "Group Play not yet implemented",Toast.LENGTH_SHORT).show();
+
+        /** We need a new intent to open where this will be implemented*/
+        //Intent intent = new Intent(this, PIanoActivity.class);
+        //startActivity(intent);
+    }
+
+    public void openRecord(View view){
+
+        Toast.makeText(this, "Record not yet implemented",Toast.LENGTH_SHORT).show();
+
+        /** We need a new intent to open where this will be implemented*/
+        //Intent intent = new Intent(this, PIanoActivity.class);
+        //startActivity(intent);
+    }
+
+    public void openManageRecord(View view){
+
+        Toast.makeText(this, "Manage Recordings not yet implemented",Toast.LENGTH_SHORT).show();
+
+        /** We need a new intent to open where this will be implemented*/
+        //Intent intent = new Intent(this, PIanoActivity.class);
+        //startActivity(intent);
+    }
+
 }
