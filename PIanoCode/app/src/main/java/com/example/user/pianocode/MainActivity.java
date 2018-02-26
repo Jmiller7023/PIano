@@ -31,7 +31,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.share){
-            Toast.makeText(this, "Share not yet implemented",Toast.LENGTH_SHORT).show();
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String message = "I found this cool new app named PIano! You should check it out at https://github.com/Jmiller7023/PIano";
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Cool New App");
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, message);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
         }
         if(item.getItemId() == R.id.action_about_us){
             Toast.makeText(this, "About us not yet implemented",Toast.LENGTH_SHORT).show();
