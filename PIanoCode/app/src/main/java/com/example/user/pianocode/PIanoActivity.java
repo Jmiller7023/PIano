@@ -25,20 +25,21 @@ public class PIanoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater m_menuInflator = getMenuInflater();
-        m_menuInflator.inflate(R.menu.my_menu, menu);
+        m_menuInflator.inflate(R.menu.piano_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.share){
-            Toast.makeText(this, "Share not yet implemented",Toast.LENGTH_SHORT).show();
+        if(item.getItemId() == R.id.action_record){
+            Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
+            m_toolbar.setTitle("Recording");
+            Toast.makeText(this, "Record not yet implemented",Toast.LENGTH_SHORT).show();
         }
-        if(item.getItemId() == R.id.action_about_us){
-            Toast.makeText(this, "About us not yet implemented",Toast.LENGTH_SHORT).show();
-        }
-        if(item.getItemId() == R.id.action_setting){
-            Toast.makeText(this, "Settings not yet implemented",Toast.LENGTH_SHORT).show();
+        if(item.getItemId() == R.id.action_stop_recording){
+            Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
+            m_toolbar.setTitle("PIano");
+            Toast.makeText(this, "Stop recording not yet implemented",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -50,6 +51,13 @@ public class PIanoActivity extends AppCompatActivity {
 
         Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
         setSupportActionBar(m_toolbar);
+
+
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         c = (Button) findViewById(R.id.wbtn1);
         d_b = (Button) findViewById(R.id.bbtn1);

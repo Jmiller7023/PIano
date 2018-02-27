@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_setting"
-        android:title="@string/menu_action_settings"
-        app:showAsAction="always"/>
 
     <item
-        android:id="@+id/action_about_us"
-        android:title="@string/menu_setting_about_us"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_info_outline_black_24dp"/>
+        android:id="@+id/action_record"
+        android:title="@string/piano_record"
+        android:icon="@drawable/ic_fiber_manual_record_black_24dp"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_stop_recording"
+        android:title="@string/piano_menu_stop_recording"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_stop_black_24dp"/>
+
+
 </menu>

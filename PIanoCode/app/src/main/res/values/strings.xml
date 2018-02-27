@@ -82,4 +82,7 @@
     <string name="setting_share">Share</string>
     <string name="manage_recordings">Manage Recordings</string>
     <string name="button_record">Record</string>
+    <string name="piano_menu_record">Record</string>
+    <string name="piano_menu_stop_recording">Stop recording</string>
+    <string name="piano_record">Record</string>
 </resources>
