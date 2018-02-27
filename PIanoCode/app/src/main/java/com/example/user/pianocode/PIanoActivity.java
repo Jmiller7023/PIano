@@ -48,7 +48,7 @@ public class PIanoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_piano);
 
-        Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
         setSupportActionBar(m_toolbar);
 
         c = (Button) findViewById(R.id.wbtn1);
