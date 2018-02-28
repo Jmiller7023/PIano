@@ -11,7 +11,7 @@
         android:defaultValue="3"
         android:entries="@array/list_preference_entries"
         android:entryValues="@array/pref_sync_frequency_values"
-        android:key="chord_num"
+        android:key="octave_num"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
         android:title="@string/pref_title_default_chord" />

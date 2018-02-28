@@ -43,15 +43,23 @@
         <item>Never</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
+        <item>1</item>
+        <item>2</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>6</item>
+        <item>7</item>
     </string-array>
 
     <string-array name="list_preference_entries">
-        <item>Chord 3</item>
-        <item>Chord 4</item>
-        <item>Chord 5</item>
+        <item>1st Octave</item>
+        <item>2nd Octave</item>
+        <item>3rd Octave</item>
+        <item>4th Octave</item>
+        <item>5th Octave</item>
+        <item>6th Octave</item>
+        <item>7th Octave</item>
     </string-array>
 
     <string-array name="list_preference_entry_values">
@@ -82,5 +90,5 @@
     <string name="piano_menu_record">Record</string>
     <string name="piano_menu_stop_recording">Stop recording</string>
     <string name="piano_record">Record</string>
-    <string name="pref_title_default_chord">Default chord</string>
+    <string name="pref_title_default_chord">Default Octave</string>
 </resources>
