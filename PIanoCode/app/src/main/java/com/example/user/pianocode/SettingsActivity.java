@@ -30,7 +30,7 @@ public class SettingsActivity extends PreferenceActivity {
                 startActivity(intent);
 
                 //make it scroll left
-                overridePendingTransition(R.transition.left_in, R.transition.left_out);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
             }
         });
     }
