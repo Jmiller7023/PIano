@@ -43,18 +43,15 @@
         <item>Never</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
     <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
+        <item>Chord 3</item>
+        <item>Chord 4</item>
+        <item>Chord 5</item>
     </string-array>
 
     <string-array name="list_preference_entry_values">
@@ -85,4 +82,5 @@
     <string name="piano_menu_record">Record</string>
     <string name="piano_menu_stop_recording">Stop recording</string>
     <string name="piano_record">Record</string>
+    <string name="pref_title_default_chord">Default chord</string>
 </resources>

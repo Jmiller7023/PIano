@@ -1,9 +1,11 @@
 package com.example.user.pianocode;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -83,8 +85,12 @@ public class PIanoActivity extends AppCompatActivity {
         else {
             soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC,0);
         }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String chordNum = prefs.getString("chord_num", "");
         //Loads in 3rd chord.
-        if(true){
+        if(chordNum.equals("3")){
             sound_c = soundPool.load(this, R.raw.c3, 1);
             sound_d_b = soundPool.load(this, R.raw.db3, 1);
             sound_d = soundPool.load(this, R.raw.d3, 1);
@@ -99,7 +105,7 @@ public class PIanoActivity extends AppCompatActivity {
             sound_b = soundPool.load(this, R.raw.b3, 1);
         }
         //Loads in 4th chord.
-        else if(true){
+        else if(chordNum.equals("4")){
             sound_c = soundPool.load(this, R.raw.c4, 1);
             sound_d_b = soundPool.load(this, R.raw.db4, 1);
             sound_d = soundPool.load(this, R.raw.d4, 1);

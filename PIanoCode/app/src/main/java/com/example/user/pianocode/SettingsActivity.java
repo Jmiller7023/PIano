@@ -21,7 +21,7 @@ public class SettingsActivity extends PreferenceActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         addPreferencesFromResource(R.xml.preferences);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
