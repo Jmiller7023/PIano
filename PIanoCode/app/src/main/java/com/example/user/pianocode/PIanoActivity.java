@@ -117,6 +117,23 @@ public class PIanoActivity extends AppCompatActivity {
                 sound_b = soundPool.load(this, R.raw.b1, 1);
                 break;
 
+            //Loads in 2nd octave.
+            case "2":/*
+                sound_c = soundPool.load(this, R.raw.c5, 1);
+                sound_d_b = soundPool.load(this, R.raw.db5, 1);
+                sound_d = soundPool.load(this, R.raw.d5, 1);
+                sound_e_b = soundPool.load(this, R.raw.eb5, 1);
+                sound_e = soundPool.load(this, R.raw.e5, 1);
+                sound_f = soundPool.load(this, R.raw.f5, 1);
+                sound_g_b = soundPool.load(this, R.raw.gb5, 1);
+                sound_g = soundPool.load(this, R.raw.g5, 1);
+                sound_a_b = soundPool.load(this, R.raw.ab5, 1);
+                sound_a = soundPool.load(this, R.raw.a5, 1);
+                sound_b_b = soundPool.load(this, R.raw.bb5, 1);
+                sound_b = soundPool.load(this, R.raw.b5, 1);*/
+                Toast.makeText(this, "2nd octave not yet implemented",Toast.LENGTH_SHORT).show();
+                break;
+
             //Loads in 3rd octave.
             case "3":
                 sound_c = soundPool.load(this, R.raw.c3, 1);
@@ -163,6 +180,40 @@ public class PIanoActivity extends AppCompatActivity {
                 sound_a = soundPool.load(this, R.raw.a5, 1);
                 sound_b_b = soundPool.load(this, R.raw.bb5, 1);
                 sound_b = soundPool.load(this, R.raw.b5, 1);
+                break;
+
+            //Loads in 6th octave.
+            case "6":/*
+                sound_c = soundPool.load(this, R.raw.c5, 1);
+                sound_d_b = soundPool.load(this, R.raw.db5, 1);
+                sound_d = soundPool.load(this, R.raw.d5, 1);
+                sound_e_b = soundPool.load(this, R.raw.eb5, 1);
+                sound_e = soundPool.load(this, R.raw.e5, 1);
+                sound_f = soundPool.load(this, R.raw.f5, 1);
+                sound_g_b = soundPool.load(this, R.raw.gb5, 1);
+                sound_g = soundPool.load(this, R.raw.g5, 1);
+                sound_a_b = soundPool.load(this, R.raw.ab5, 1);
+                sound_a = soundPool.load(this, R.raw.a5, 1);
+                sound_b_b = soundPool.load(this, R.raw.bb5, 1);
+                sound_b = soundPool.load(this, R.raw.b5, 1);*/
+                Toast.makeText(this, "6th octave not yet implemented",Toast.LENGTH_SHORT).show();
+                break;
+
+            //Loads in 7th octave.
+            case "7":/*
+                sound_c = soundPool.load(this, R.raw.c5, 1);
+                sound_d_b = soundPool.load(this, R.raw.db5, 1);
+                sound_d = soundPool.load(this, R.raw.d5, 1);
+                sound_e_b = soundPool.load(this, R.raw.eb5, 1);
+                sound_e = soundPool.load(this, R.raw.e5, 1);
+                sound_f = soundPool.load(this, R.raw.f5, 1);
+                sound_g_b = soundPool.load(this, R.raw.gb5, 1);
+                sound_g = soundPool.load(this, R.raw.g5, 1);
+                sound_a_b = soundPool.load(this, R.raw.ab5, 1);
+                sound_a = soundPool.load(this, R.raw.a5, 1);
+                sound_b_b = soundPool.load(this, R.raw.bb5, 1);
+                sound_b = soundPool.load(this, R.raw.b5, 1);*/
+                Toast.makeText(this, "7th octave not yet implemented",Toast.LENGTH_SHORT).show();
                 break;
 
             //If octave is somehow not set to one of the correct vales load 4th.

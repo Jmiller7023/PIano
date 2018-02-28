@@ -11,7 +11,7 @@ import android.view.View;
 
 public class SettingsActivity extends PreferenceActivity {
     private AppCompatDelegate mDelegate;
-    int test = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getDelegate().installViewFactory();
