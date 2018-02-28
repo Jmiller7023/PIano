@@ -1,2 +1,2 @@
 # PIano
-A mobile phone application that extends an emulated piano across multiple devices.
+An Android application that extends an emulated piano across multiple devices.
