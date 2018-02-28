@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar m_toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(m_toolbar);
     }
 

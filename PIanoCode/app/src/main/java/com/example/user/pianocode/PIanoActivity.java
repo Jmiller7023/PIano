@@ -33,12 +33,12 @@ public class PIanoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_record){
-            Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
+            Toolbar m_toolbar = findViewById(R.id.toolbar3);
             m_toolbar.setTitle("Recording");
             Toast.makeText(this, "Record not yet implemented",Toast.LENGTH_SHORT).show();
         }
         if(item.getItemId() == R.id.action_stop_recording){
-            Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
+            Toolbar m_toolbar = findViewById(R.id.toolbar3);
             m_toolbar.setTitle("Playing");
             Toast.makeText(this, "Stop recording not yet implemented",Toast.LENGTH_SHORT).show();
         }
@@ -50,7 +50,7 @@ public class PIanoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_piano);
 
-        Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
+        Toolbar m_toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(m_toolbar);
 
         m_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -64,18 +64,18 @@ public class PIanoActivity extends AppCompatActivity {
             }
         });
 
-        c = (Button) findViewById(R.id.wbtn1);
-        d_b = (Button) findViewById(R.id.bbtn1);
-        d = (Button) findViewById(R.id.wbtn2);
-        e_b = (Button) findViewById(R.id.bbtn2);
-        e = (Button) findViewById(R.id.wbtn3);
-        f = (Button) findViewById(R.id.wbtn4);
-        g_b = (Button) findViewById(R.id.bbtn3);
-        g = (Button) findViewById(R.id.wbtn5);
-        a_b = (Button) findViewById(R.id.bbtn4);
-        a = (Button) findViewById(R.id.wbtn6);
-        b_b = (Button) findViewById(R.id.bbtn5);
-        b = (Button) findViewById(R.id.wbtn7);
+        c = findViewById(R.id.wbtn1);
+        d_b = findViewById(R.id.bbtn1);
+        d = findViewById(R.id.wbtn2);
+        e_b = findViewById(R.id.bbtn2);
+        e = findViewById(R.id.wbtn3);
+        f = findViewById(R.id.wbtn4);
+        g_b = findViewById(R.id.bbtn3);
+        g = findViewById(R.id.wbtn5);
+        a_b = findViewById(R.id.bbtn4);
+        a = findViewById(R.id.wbtn6);
+        b_b = findViewById(R.id.bbtn5);
+        b = findViewById(R.id.wbtn7);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             soundPool = new SoundPool.Builder().setMaxStreams(5).build();
