@@ -1,5 +1,6 @@
 package com.example.user.pianocode;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
@@ -38,7 +39,7 @@ public class PIanoActivity extends AppCompatActivity {
         }
         if(item.getItemId() == R.id.action_stop_recording){
             Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
-            m_toolbar.setTitle("PIano");
+            m_toolbar.setTitle("Playing");
             Toast.makeText(this, "Stop recording not yet implemented",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
@@ -52,12 +53,16 @@ public class PIanoActivity extends AppCompatActivity {
         Toolbar m_toolbar = (Toolbar)findViewById(R.id.toolbar3);
         setSupportActionBar(m_toolbar);
 
+        m_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
 
-        // add back arrow to toolbar
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+                //make it scroll left
+                overridePendingTransition(R.transition.left_in, R.transition.left_out);
+            }
+        });
 
         c = (Button) findViewById(R.id.wbtn1);
         d_b = (Button) findViewById(R.id.bbtn1);
@@ -78,19 +83,51 @@ public class PIanoActivity extends AppCompatActivity {
         else {
             soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC,0);
         }
-
-        sound_c = soundPool.load(this, R.raw.c3, 1);
-        sound_d_b = soundPool.load(this, R.raw.db3, 1);
-        sound_d = soundPool.load(this, R.raw.d3, 1);
-        sound_e_b = soundPool.load(this, R.raw.eb3, 1);
-        sound_e = soundPool.load(this, R.raw.e3, 1);
-        sound_f = soundPool.load(this, R.raw.f3, 1);
-        sound_g_b = soundPool.load(this, R.raw.gb3, 1);
-        sound_g = soundPool.load(this, R.raw.g3, 1);
-        sound_a_b = soundPool.load(this, R.raw.ab3, 1);
-        sound_a = soundPool.load(this, R.raw.a3, 1);
-        sound_b_b = soundPool.load(this, R.raw.bb3, 1);
-        sound_b = soundPool.load(this, R.raw.b3, 1);
+        //Loads in 3rd chord.
+        if(true){
+            sound_c = soundPool.load(this, R.raw.c3, 1);
+            sound_d_b = soundPool.load(this, R.raw.db3, 1);
+            sound_d = soundPool.load(this, R.raw.d3, 1);
+            sound_e_b = soundPool.load(this, R.raw.eb3, 1);
+            sound_e = soundPool.load(this, R.raw.e3, 1);
+            sound_f = soundPool.load(this, R.raw.f3, 1);
+            sound_g_b = soundPool.load(this, R.raw.gb3, 1);
+            sound_g = soundPool.load(this, R.raw.g3, 1);
+            sound_a_b = soundPool.load(this, R.raw.ab3, 1);
+            sound_a = soundPool.load(this, R.raw.a3, 1);
+            sound_b_b = soundPool.load(this, R.raw.bb3, 1);
+            sound_b = soundPool.load(this, R.raw.b3, 1);
+        }
+        //Loads in 4th chord.
+        else if(true){
+            sound_c = soundPool.load(this, R.raw.c4, 1);
+            sound_d_b = soundPool.load(this, R.raw.db4, 1);
+            sound_d = soundPool.load(this, R.raw.d4, 1);
+            sound_e_b = soundPool.load(this, R.raw.eb4, 1);
+            sound_e = soundPool.load(this, R.raw.e4, 1);
+            sound_f = soundPool.load(this, R.raw.f4, 1);
+            sound_g_b = soundPool.load(this, R.raw.gb4, 1);
+            sound_g = soundPool.load(this, R.raw.g4, 1);
+            sound_a_b = soundPool.load(this, R.raw.ab4, 1);
+            sound_a = soundPool.load(this, R.raw.a4, 1);
+            sound_b_b = soundPool.load(this, R.raw.bb4, 1);
+            sound_b = soundPool.load(this, R.raw.b4, 1);
+        }
+        //Loads in 5th chord.
+        else{
+            sound_c = soundPool.load(this, R.raw.c5, 1);
+            sound_d_b = soundPool.load(this, R.raw.db5, 1);
+            sound_d = soundPool.load(this, R.raw.d5, 1);
+            sound_e_b = soundPool.load(this, R.raw.eb5, 1);
+            sound_e = soundPool.load(this, R.raw.e5, 1);
+            sound_f = soundPool.load(this, R.raw.f5, 1);
+            sound_g_b = soundPool.load(this, R.raw.gb5, 1);
+            sound_g = soundPool.load(this, R.raw.g5, 1);
+            sound_a_b = soundPool.load(this, R.raw.ab5, 1);
+            sound_a = soundPool.load(this, R.raw.a5, 1);
+            sound_b_b = soundPool.load(this, R.raw.bb5, 1);
+            sound_b = soundPool.load(this, R.raw.b5, 1);
+        }
 
         c.setOnClickListener(new View.OnClickListener() {
             @Override

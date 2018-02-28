@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "About us not yet implemented",Toast.LENGTH_SHORT).show();
         }
         if(item.getItemId() == R.id.action_setting){
-            Toast.makeText(this, "Settings not yet implemented",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -55,15 +56,6 @@ public class MainActivity extends AppCompatActivity {
     public void openGroupPIano(View view){
 
         Toast.makeText(this, "Group Play not yet implemented",Toast.LENGTH_SHORT).show();
-
-        /** We need a new intent to open where this will be implemented*/
-        //Intent intent = new Intent(this, PIanoActivity.class);
-        //startActivity(intent);
-    }
-
-    public void openRecord(View view){
-
-        Toast.makeText(this, "Record not yet implemented",Toast.LENGTH_SHORT).show();
 
         /** We need a new intent to open where this will be implemented*/
         //Intent intent = new Intent(this, PIanoActivity.class);
