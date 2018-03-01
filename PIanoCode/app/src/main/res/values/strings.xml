@@ -92,4 +92,7 @@
     <string name="piano_record">Record</string>
     <string name="pref_title_default_chord">Default Octave</string>
     <string name="button_exit">exit</string>
+    <string name="about_cancel">Cancel</string>
+    <string name="about_text">test</string>
+    <string name="about_title">About this App</string>
 </resources>

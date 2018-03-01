@@ -1,5 +1,6 @@
 package com.example.user.pianocode;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,18 +26,16 @@ public class MainActivity extends AppCompatActivity {
         Button soloplaybutton = findViewById(R.id.soloplay);
         soloplaybutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), PIanoActivity.class);
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
-                startActivityForResult(myIntent, 0);
+                Intent intent = new Intent(view.getContext(), PIanoActivity.class);
+                startActivity(intent);
             }
         });
 
         Button multiplayerbutton = findViewById(R.id.groupplay);
         multiplayerbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //Intent myIntent = new Intent(view.getContext(), BluetoothChat.class);
-                //myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
-                //startActivityForResult(myIntent, 0);
+                //Intent intent = new intent(view.getContext(), BluetoothChat.class);
+                //startActivity(intent);
             }
         });
     }
@@ -59,27 +58,16 @@ public class MainActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(sharingIntent, "Share via"));
         }
         if(item.getItemId() == R.id.action_about_us){
-            Toast.makeText(this, "About us not yet implemented",Toast.LENGTH_SHORT).show();
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.dialog_about);
+            dialog.setTitle("About this App");
+            dialog.show();
         }
         if(item.getItemId() == R.id.action_setting){
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void openPIano(View view){
-        Intent intent = new Intent(this, PIanoActivity.class);
-        startActivity(intent);
-    }
-
-    public void openGroupPIano(View view){
-
-        Toast.makeText(this, "Group Play not yet implemented",Toast.LENGTH_SHORT).show();
-
-        /** We need a new intent to open where this will be implemented*/
-        //Intent intent = new Intent(this, PIanoActivity.class);
-        //startActivity(intent);
     }
 
     public void openManageRecord(View view){
@@ -90,10 +78,4 @@ public class MainActivity extends AppCompatActivity {
         //Intent intent = new Intent(this, PIanoActivity.class);
         //startActivity(intent);
     }
-
-    public void exit(View v){
-        finish();
-        moveTaskToBack(true);
-    }
-
 }
