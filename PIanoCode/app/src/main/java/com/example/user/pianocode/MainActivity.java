@@ -8,17 +8,37 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Toolbar m_toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(m_toolbar);
+
+        Button soloplaybutton = findViewById(R.id.soloplay);
+        soloplaybutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), PIanoActivity.class);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+
+        Button multiplayerbutton = findViewById(R.id.groupplay);
+        multiplayerbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //Intent myIntent = new Intent(view.getContext(), BluetoothChat.class);
+                //myIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                //startActivityForResult(myIntent, 0);
+            }
+        });
     }
 
     @Override
@@ -69,6 +89,11 @@ public class MainActivity extends AppCompatActivity {
         /** We need a new intent to open where this will be implemented*/
         //Intent intent = new Intent(this, PIanoActivity.class);
         //startActivity(intent);
+    }
+
+    public void exit(View v){
+        finish();
+        moveTaskToBack(true);
     }
 
 }

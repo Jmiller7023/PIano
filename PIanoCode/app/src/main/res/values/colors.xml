@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="sky">#AAE9F2</color>
+    <color name="bluegrey">#E0E9EE</color>
     <color name="white">#FFFFFF</color>
     <color name="offwhite">#D1D1D1</color>
     <color name="grey">#7A7A7A</color>

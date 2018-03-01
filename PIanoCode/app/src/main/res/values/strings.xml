@@ -91,4 +91,5 @@
     <string name="piano_menu_stop_recording">Stop recording</string>
     <string name="piano_record">Record</string>
     <string name="pref_title_default_chord">Default Octave</string>
+    <string name="button_exit">exit</string>
 </resources>
