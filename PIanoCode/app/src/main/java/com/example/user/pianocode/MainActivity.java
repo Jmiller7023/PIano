@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         Button multiplayerbutton = findViewById(R.id.groupplay);
         multiplayerbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //Intent intent = new intent(view.getContext(), BluetoothChat.class);
-                //startActivity(intent);
+                Intent intent = new Intent(view.getContext(), BluetoothChat.class);
+                startActivity(intent);
             }
         });
     }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Manage Recordings not yet implemented",Toast.LENGTH_SHORT).show();
 
-        /** We need a new intent to open where this will be implemented*/
+        // We need a new intent to open where this will be implemented
         //Intent intent = new Intent(this, PIanoActivity.class);
         //startActivity(intent);
     }

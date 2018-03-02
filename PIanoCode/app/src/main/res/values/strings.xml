@@ -93,6 +93,31 @@
     <string name="pref_title_default_chord">Default Octave</string>
     <string name="button_exit">exit</string>
     <string name="about_cancel">Cancel</string>
-    <string name="about_text">test</string>
+    <string name="about_text">An Android application that extends an emulated piano across multiple devices.
+        \n\nThe octave for the piano can be set in the settings screen.
+        \n\nFor group play you must have multiple android devices running this app.
+        \n\nThe device must be bluetooth enabled.
+        \n\nEnjoy playing!</string>
     <string name="about_title">About this App</string>
+
+    <!--  BluetoothChat -->
+    <string name="send">Send</string>
+    <string name="not_connected">You are not connected to a device</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
+    <string name="title_connecting">connecting…</string>
+    <string name="title_connected_to">connected: </string>
+    <string name="title_not_connected">not connected</string>
+
+    <!--  DeviceListActivity -->
+    <string name="scanning">scanning for devices…</string>
+    <string name="select_device">select a device to connect</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="button_scan">Scan for devices</string>
+
+    <!-- Options Menu -->
+    <string name="connect">Connect a device</string>
+    <string name="discoverable">Make discoverable</string>
 </resources>
