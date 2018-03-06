@@ -1,15 +1,18 @@
 package com.example.user.pianocode;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -54,13 +57,12 @@ public class BluetoothChat extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 2;
 
     // Layout Views
-    private TextView mTitle;
-    private ListView mConversationView;
+    ListView mConversationView;
     private EditText mOutEditText;
-    private Button mSendButton;
+    Button mSendButton;
 
     // Name of the connected device
-    private String mConnectedDeviceName = null;
+    String mConnectedDeviceName = null;
     // Array adapter for the conversation thread
     private ArrayAdapter<String> mConversationArrayAdapter;
     // String buffer for outgoing messages
@@ -78,27 +80,124 @@ public class BluetoothChat extends AppCompatActivity {
     public static final int E_TONE = 5;
     public static final int F_TONE = 6;
     public static final int G_TONE = 7;
-    public static final int A_SHARP_TONE = 8;
-    public static final int C_SHARP_TONE = 9;
-    public static final int D_SHARP_TONE = 10;
-    public static final int F_SHARP_TONE = 11;
-    public static final int G_SHARP_TONE = 12;
+    public static final int B_SHARP_TONE = 8;
+    public static final int D_SHARP_TONE = 9;
+    public static final int E_SHARP_TONE = 10;
+    public static final int G_SHARP_TONE = 11;
+    public static final int A_SHARP_TONE = 12;
 
     private SoundPool soundPool;
     private ArrayList<Integer> soundIDs = new ArrayList<>();
-    private int A_tone; //1
-    private int B_tone; //2
-    private int C_tone; //3
-    private int D_tone; //4
-    private int E_tone; //5
-    private int F_tone; //6
-    private int G_tone; //7
-    private int Asharp_tone; //8
-    private int Csharp_tone; //9
-    private int Dsharp_tone; //10
-    private int Fsharp_tone; //11
-    private int Gsharp_tone; //12
 
+    //Octave 1 sounds
+    private int sound_a; //1
+    private int sound_b; //2
+    private int sound_c; //3
+    private int sound_d; //4
+    private int sound_e; //5
+    private int sound_f; //6
+    private int sound_g; //7
+    private int sound_b_b; //8
+    private int sound_d_b; //9
+    private int sound_e_b; //10
+    private int sound_g_b; //11
+    private int sound_a_b; //12
+
+    //Octave 2 sounds
+    private int sound_a_2; //1
+    private int sound_b_2; //2
+    private int sound_c_2; //3
+    private int sound_d_2; //4
+    private int sound_e_2; //5
+    private int sound_f_2; //6
+    private int sound_g_2; //7
+    private int sound_b_b_2; //8
+    private int sound_d_b_2; //9
+    private int sound_e_b_2; //10
+    private int sound_g_b_2; //11
+    private int sound_a_b_2; //12
+
+    //Octave 3 sounds
+    private int sound_a_3; //1
+    private int sound_b_3; //2
+    private int sound_c_3; //3
+    private int sound_d_3; //4
+    private int sound_e_3; //5
+    private int sound_f_3; //6
+    private int sound_g_3; //7
+    private int sound_b_b_3; //8
+    private int sound_d_b_3; //9
+    private int sound_e_b_3; //10
+    private int sound_g_b_3; //11
+    private int sound_a_b_3; //12
+
+    //Octave 4 sounds
+    private int sound_a_4; //1
+    private int sound_b_4; //2
+    private int sound_c_4; //3
+    private int sound_d_4; //4
+    private int sound_e_4; //5
+    private int sound_f_4; //6
+    private int sound_g_4; //7
+    private int sound_b_b_4; //8
+    private int sound_d_b_4; //9
+    private int sound_e_b_4; //10
+    private int sound_g_b_4; //11
+    private int sound_a_b_4; //12
+
+    //Octave 5 sounds
+    private int sound_a_5; //1
+    private int sound_b_5; //2
+    private int sound_c_5; //3
+    private int sound_d_5; //4
+    private int sound_e_5; //5
+    private int sound_f_5; //6
+    private int sound_g_5; //7
+    private int sound_b_b_5; //8
+    private int sound_d_b_5; //9
+    private int sound_e_b_5; //10
+    private int sound_g_b_5; //11
+    private int sound_a_b_5; //12
+
+    //Octave 6 sounds
+    private int sound_a_6; //1
+    private int sound_b_6; //2
+    private int sound_c_6; //3
+    private int sound_d_6; //4
+    private int sound_e_6; //5
+    private int sound_f_6; //6
+    private int sound_g_6; //7
+    private int sound_b_b_6; //8
+    private int sound_d_b_6; //9
+    private int sound_e_b_6; //10
+    private int sound_g_b_6; //11
+    private int sound_a_b_6; //12
+
+    //Octave 7 sounds
+    private int sound_a_7; //1
+    private int sound_b_7; //2
+    private int sound_c_7; //3
+    private int sound_d_7; //4
+    private int sound_e_7; //5
+    private int sound_f_7; //6
+    private int sound_g_7; //7
+    private int sound_b_b_7; //8
+    private int sound_d_b_7; //9
+    private int sound_e_b_7; //10
+    private int sound_g_b_7; //11
+    private int sound_a_b_7; //12
+
+    //Octave info
+    public String mOctaveNum;
+    public static final String OCTAVE_1 = "1";
+    public static final String OCTAVE_2 = "2";
+    public static final String OCTAVE_3 = "3";
+    public static final String OCTAVE_4 = "4";
+    public static final String OCTAVE_5 = "5";
+    public static final String OCTAVE_6 = "6";
+    public static final String OCTAVE_7 = "7";
+
+    //Buttons
     Button A_button;
     Button B_button;
     Button C_button;
@@ -107,26 +206,118 @@ public class BluetoothChat extends AppCompatActivity {
     Button F_button;
     Button G_button;
     Button Asharp_button;
-    Button Csharp_button;
+    Button Bsharp_button;
     Button Dsharp_button;
-    Button Fsharp_button;
+    Button Esharp_button;
     Button Gsharp_button;
 
     public void initializeSoundPool(){
         soundPool = new SoundPool(12, AudioManager.STREAM_MUSIC, 0);
         // Piano
-        A_tone = soundPool.load(this, R.raw.a3, 1); //1
-        B_tone = soundPool.load(this, R.raw.b3, 1); //2
-        C_tone = soundPool.load(this, R.raw.c3, 1); //3
-        D_tone = soundPool.load(this, R.raw.d3, 1); //4
-        E_tone = soundPool.load(this, R.raw.e3, 1); //5
-        F_tone = soundPool.load(this, R.raw.f3, 1); //6
-        G_tone = soundPool.load(this, R.raw.g3, 1); //7
-        Asharp_tone = soundPool.load(this, R.raw.bb3, 1); //8
-        Csharp_tone = soundPool.load(this, R.raw.db3, 1); //9
-        Dsharp_tone = soundPool.load(this, R.raw.eb3, 1); //10
-        Fsharp_tone = soundPool.load(this, R.raw.gb3, 1); //11
-        Gsharp_tone = soundPool.load(this, R.raw.ab3, 1); //12
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        mOctaveNum = prefs.getString("octave_num", "");
+
+
+        //Loads in 1st octave.
+        sound_c = soundPool.load(this, R.raw.c1, 1);
+        sound_d_b = soundPool.load(this, R.raw.db1, 1);
+        sound_d = soundPool.load(this, R.raw.d1, 1);
+        sound_e_b = soundPool.load(this, R.raw.eb1, 1);
+        sound_e = soundPool.load(this, R.raw.e1, 1);
+        sound_f = soundPool.load(this, R.raw.f1, 1);
+        sound_g_b = soundPool.load(this, R.raw.gb1, 1);
+        sound_g = soundPool.load(this, R.raw.g1, 1);
+        sound_a_b = soundPool.load(this, R.raw.ab1, 1);
+        sound_a = soundPool.load(this, R.raw.a1, 1);
+        sound_b_b = soundPool.load(this, R.raw.bb1, 1);
+        sound_b = soundPool.load(this, R.raw.b1, 1);
+
+
+        //Loads in 2nd octave.
+        sound_c_2 = soundPool.load(this, R.raw.c2, 1);
+        sound_d_b_2 = soundPool.load(this, R.raw.db2, 1);
+        sound_d_2 = soundPool.load(this, R.raw.d2, 1);
+        sound_e_b_2 = soundPool.load(this, R.raw.eb2, 1);
+        sound_e_2 = soundPool.load(this, R.raw.e2, 1);
+        sound_f_2 = soundPool.load(this, R.raw.f2, 1);
+        sound_g_b_2 = soundPool.load(this, R.raw.gb2, 1);
+        sound_g_2 = soundPool.load(this, R.raw.g2, 1);
+        sound_a_b_2 = soundPool.load(this, R.raw.ab2, 1);
+        sound_a_2 = soundPool.load(this, R.raw.a2, 1);
+        sound_b_b_2 = soundPool.load(this, R.raw.bb2, 1);
+        sound_b_2 = soundPool.load(this, R.raw.b2, 1);
+
+
+        //Loads in 3rd octave.
+        sound_c_3 = soundPool.load(this, R.raw.c3, 1);
+        sound_d_b_3 = soundPool.load(this, R.raw.db3, 1);
+        sound_d_3 = soundPool.load(this, R.raw.d3, 1);
+        sound_e_b_3 = soundPool.load(this, R.raw.eb3, 1);
+        sound_e_3 = soundPool.load(this, R.raw.e3, 1);
+        sound_f_3 = soundPool.load(this, R.raw.f3, 1);
+        sound_g_b_3 = soundPool.load(this, R.raw.gb3, 1);
+        sound_g_3 = soundPool.load(this, R.raw.g3, 1);
+        sound_a_b_3 = soundPool.load(this, R.raw.ab3, 1);
+        sound_a_3 = soundPool.load(this, R.raw.a3, 1);
+        sound_b_b_3 = soundPool.load(this, R.raw.bb3, 1);
+        sound_b_3 = soundPool.load(this, R.raw.b3, 1);
+
+        //Loads in 4th octave.
+        sound_c_4 = soundPool.load(this, R.raw.c4, 1);
+        sound_d_b_4 = soundPool.load(this, R.raw.db4, 1);
+        sound_d_4 = soundPool.load(this, R.raw.d4, 1);
+        sound_e_b_4 = soundPool.load(this, R.raw.eb4, 1);
+        sound_e_4 = soundPool.load(this, R.raw.e4, 1);
+        sound_f_4 = soundPool.load(this, R.raw.f4, 1);
+        sound_g_b_4 = soundPool.load(this, R.raw.gb4, 1);
+        sound_g_4 = soundPool.load(this, R.raw.g4, 1);
+        sound_a_b_4 = soundPool.load(this, R.raw.ab4, 1);
+        sound_a_4 = soundPool.load(this, R.raw.a4, 1);
+        sound_b_b_4 = soundPool.load(this, R.raw.bb4, 1);
+        sound_b_4 = soundPool.load(this, R.raw.b4, 1);
+
+        //Loads in 5th octave.
+        sound_c_5 = soundPool.load(this, R.raw.c5, 1);
+        sound_d_b_5 = soundPool.load(this, R.raw.db5, 1);
+        sound_d_5 = soundPool.load(this, R.raw.d5, 1);
+        sound_e_b_5 = soundPool.load(this, R.raw.eb5, 1);
+        sound_e_5 = soundPool.load(this, R.raw.e5, 1);
+        sound_f_5 = soundPool.load(this, R.raw.f5, 1);
+        sound_g_b_5 = soundPool.load(this, R.raw.gb5, 1);
+        sound_g_5 = soundPool.load(this, R.raw.g5, 1);
+        sound_a_b_5 = soundPool.load(this, R.raw.ab5, 1);
+        sound_a_5 = soundPool.load(this, R.raw.a5, 1);
+        sound_b_b_5 = soundPool.load(this, R.raw.bb5, 1);
+        sound_b_5 = soundPool.load(this, R.raw.b5, 1);
+
+        //Loads in 6th octave.
+        sound_c_6 = soundPool.load(this, R.raw.c6, 1);
+        sound_d_b_6 = soundPool.load(this, R.raw.db6, 1);
+        sound_d_6 = soundPool.load(this, R.raw.d6, 1);
+        sound_e_b_6 = soundPool.load(this, R.raw.eb6, 1);
+        sound_e_6 = soundPool.load(this, R.raw.e6, 1);
+        sound_f_6 = soundPool.load(this, R.raw.f6, 1);
+        sound_g_b_6 = soundPool.load(this, R.raw.gb6, 1);
+        sound_g_6 = soundPool.load(this, R.raw.g6, 1);
+        sound_a_b_6 = soundPool.load(this, R.raw.ab6, 1);
+        sound_a_6 = soundPool.load(this, R.raw.a6, 1);
+        sound_b_b_6 = soundPool.load(this, R.raw.bb6, 1);
+        sound_b_6 = soundPool.load(this, R.raw.b6, 1);
+
+        //Loads in 7th octave.
+        sound_c_7 = soundPool.load(this, R.raw.c7, 1);
+        sound_d_b_7 = soundPool.load(this, R.raw.db7, 1);
+        sound_d_7 = soundPool.load(this, R.raw.d7, 1);
+        sound_e_b_7 = soundPool.load(this, R.raw.eb7, 1);
+        sound_e_7 = soundPool.load(this, R.raw.e7, 1);
+        sound_f_7 = soundPool.load(this, R.raw.f7, 1);
+        sound_g_b_7 = soundPool.load(this, R.raw.gb7, 1);
+        sound_g_7 = soundPool.load(this, R.raw.g7, 1);
+        sound_a_b_7 = soundPool.load(this, R.raw.ab7, 1);
+        sound_a_7 = soundPool.load(this, R.raw.a7, 1);
+        sound_b_b_7 = soundPool.load(this, R.raw.bb7, 1);
+        sound_b_7 = soundPool.load(this, R.raw.b7, 1);
     }
 
     @Override
@@ -142,10 +333,9 @@ public class BluetoothChat extends AppCompatActivity {
         if(D) Log.e(TAG, "+++ ON CREATE +++");
 
         initializeSoundPool();
+
         // Set up the window layout
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_piano);
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 
         Toolbar m_toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(m_toolbar);
@@ -168,16 +358,6 @@ public class BluetoothChat extends AppCompatActivity {
             }
         });
 
-
-        if(D) Log.e(TAG, "FINISHED SETUP WINDOW LAYOUT");
-
-        // Set up the custom title
-        //mTitle = (TextView) findViewById(R.id.title_left_text);
-        //mTitle.setText(R.string.app_name);
-        //mTitle = (TextView) findViewById(R.id.title_right_text);
-
-        if(D) Log.e(TAG, "FINISHED SETUP CUSTOM TITLE");
-
         // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -194,8 +374,8 @@ public class BluetoothChat extends AppCompatActivity {
             @ Override
             public void onClick(View view) {
                 // play tone
-                sendMessage("1");
-                soundPool.play(A_tone, 1, 1, 0, 0, 1);
+                sendMessage("01" + mOctaveNum);
+                playSound(1, mOctaveNum);
             }
 
         });
@@ -204,8 +384,8 @@ public class BluetoothChat extends AppCompatActivity {
         B_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("2");
-                soundPool.play(B_tone, 1, 1, 0, 0, 1);
+                sendMessage("02" + mOctaveNum);
+                playSound(2, mOctaveNum);
             }
 
         });
@@ -214,8 +394,8 @@ public class BluetoothChat extends AppCompatActivity {
         C_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("3");
-                soundPool.play(C_tone, 1, 1, 0, 0, 1);
+                sendMessage("03" + mOctaveNum);
+                playSound(3, mOctaveNum);
             }
 
         });
@@ -224,8 +404,8 @@ public class BluetoothChat extends AppCompatActivity {
         D_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("4");
-                soundPool.play(D_tone, 1, 1, 0, 0, 1);
+                sendMessage("04" + mOctaveNum);
+                playSound(4, mOctaveNum);
             }
 
         });
@@ -234,8 +414,8 @@ public class BluetoothChat extends AppCompatActivity {
         E_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("5");
-                soundPool.play(E_tone, 1, 1, 0, 0, 1);
+                sendMessage("05" + mOctaveNum);
+                playSound(5, mOctaveNum);
             }
 
         });
@@ -244,8 +424,8 @@ public class BluetoothChat extends AppCompatActivity {
         F_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("6");
-                soundPool.play(F_tone, 1, 1, 0, 0, 1);
+                sendMessage("06" + mOctaveNum);
+                playSound(6, mOctaveNum);
             }
 
         });
@@ -254,8 +434,8 @@ public class BluetoothChat extends AppCompatActivity {
         G_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("7");
-                soundPool.play(G_tone, 1, 1, 0, 0, 1);
+                sendMessage("07" + mOctaveNum);
+                playSound(7, mOctaveNum);
             }
 
         });
@@ -264,18 +444,18 @@ public class BluetoothChat extends AppCompatActivity {
         Asharp_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("8");
-                soundPool.play(Asharp_tone, 1, 1, 0, 0, 1);
+                sendMessage("08" + mOctaveNum);
+                playSound(8, mOctaveNum);
             }
 
         });
 
-        Csharp_button = findViewById(R.id.bbtn1);
-        Csharp_button.setOnClickListener(new OnClickListener() {
+        Bsharp_button = findViewById(R.id.bbtn1);
+        Bsharp_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("9");
-                soundPool.play(Csharp_tone, 1, 1, 0, 0, 1);
+                sendMessage("09" + mOctaveNum);
+                playSound(9, mOctaveNum);
             }
 
         });
@@ -284,18 +464,18 @@ public class BluetoothChat extends AppCompatActivity {
         Dsharp_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("10");
-                soundPool.play(Dsharp_tone, 1, 1, 0, 0, 1);
+                sendMessage("10" + mOctaveNum);
+                playSound(10, mOctaveNum);
             }
 
         });
 
-        Fsharp_button = findViewById(R.id.bbtn3);
-        Fsharp_button.setOnClickListener(new OnClickListener() {
+        Esharp_button = findViewById(R.id.bbtn3);
+        Esharp_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("11");
-                soundPool.play(Fsharp_tone, 1, 1, 0, 0, 1);
+                sendMessage("11" + mOctaveNum);
+                playSound(11, mOctaveNum);
             }
 
         });
@@ -304,8 +484,8 @@ public class BluetoothChat extends AppCompatActivity {
         Gsharp_button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 // play tone
-                sendMessage("12");
-                soundPool.play(Gsharp_tone, 1, 1, 0, 0, 1);
+                sendMessage("12" + mOctaveNum);
+                playSound(12, mOctaveNum);
             }
 
         });
@@ -447,6 +627,7 @@ public class BluetoothChat extends AppCompatActivity {
             };
 
     // The Handler that gets information back from the BluetoothChatService
+    @SuppressLint("HandlerLeak")
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -480,8 +661,8 @@ public class BluetoothChat extends AppCompatActivity {
                         }
                     }
                     catch(InterruptedException ex){
+                        //Empty
                     }
-                    playSound(Integer.parseInt(writeMessage));
                     break;
                 case MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
@@ -490,7 +671,7 @@ public class BluetoothChat extends AppCompatActivity {
                     //mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
                     if(D) Log.e(TAG, "Received: "+Integer.parseInt(readMessage));
 
-                    playSound(Integer.parseInt(readMessage));
+                    playSound(Integer.parseInt(readMessage.substring(0,2)), readMessage.substring(2,3));
                     break;
                 case MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -506,43 +687,287 @@ public class BluetoothChat extends AppCompatActivity {
         }
     };
 
-    public void playSound(int sound){
-        switch(sound){
-            case A_TONE:
-                soundIDs.add(soundPool.play(A_tone, 1, 1, 0, 0, 1));
+    public void playSound(int sound, String octave){
+        switch(octave) {
+            case OCTAVE_1:
+                switch (sound) {
+                    case A_TONE:
+                        soundIDs.add(soundPool.play(sound_a, 1, 1, 0, 0, 1));
+                        break;
+                    case B_TONE:
+                        soundIDs.add(soundPool.play(sound_b, 1, 1, 0, 0, 1));
+                        break;
+                    case C_TONE:
+                        soundIDs.add(soundPool.play(sound_c, 1, 1, 0, 0, 1));
+                        break;
+                    case D_TONE:
+                        soundIDs.add(soundPool.play(sound_d, 1, 1, 0, 0, 1));
+                        break;
+                    case E_TONE:
+                        soundIDs.add(soundPool.play(sound_e, 1, 1, 0, 0, 1));
+                        break;
+                    case F_TONE:
+                        soundIDs.add(soundPool.play(sound_f, 1, 1, 0, 0, 1));
+                        break;
+                    case G_TONE:
+                        soundIDs.add(soundPool.play(sound_g, 1, 1, 0, 0, 1));
+                        break;
+                    case B_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_b_b, 1, 1, 0, 0, 1));
+                        break;
+                    case D_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_d_b, 1, 1, 0, 0, 1));
+                        break;
+                    case E_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_e_b, 1, 1, 0, 0, 1));
+                        break;
+                    case G_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_g_b, 1, 1, 0, 0, 1));
+                        break;
+                    case A_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_a_b, 1, 1, 0, 0, 1));
+                        break;
+                }
                 break;
-            case B_TONE:
-                soundIDs.add(soundPool.play(B_tone, 1, 1, 0, 0, 1));
+            case OCTAVE_2:
+                switch (sound) {
+                    case A_TONE:
+                        soundIDs.add(soundPool.play(sound_a_2, 1, 1, 0, 0, 1));
+                        break;
+                    case B_TONE:
+                        soundIDs.add(soundPool.play(sound_b_2, 1, 1, 0, 0, 1));
+                        break;
+                    case C_TONE:
+                        soundIDs.add(soundPool.play(sound_c_2, 1, 1, 0, 0, 1));
+                        break;
+                    case D_TONE:
+                        soundIDs.add(soundPool.play(sound_d_2, 1, 1, 0, 0, 1));
+                        break;
+                    case E_TONE:
+                        soundIDs.add(soundPool.play(sound_e_2, 1, 1, 0, 0, 1));
+                        break;
+                    case F_TONE:
+                        soundIDs.add(soundPool.play(sound_f_2, 1, 1, 0, 0, 1));
+                        break;
+                    case G_TONE:
+                        soundIDs.add(soundPool.play(sound_g_2, 1, 1, 0, 0, 1));
+                        break;
+                    case B_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_b_b_2, 1, 1, 0, 0, 1));
+                        break;
+                    case D_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_d_b_2, 1, 1, 0, 0, 1));
+                        break;
+                    case E_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_e_b_2, 1, 1, 0, 0, 1));
+                        break;
+                    case G_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_g_b_2, 1, 1, 0, 0, 1));
+                        break;
+                    case A_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_a_b_2, 1, 1, 0, 0, 1));
+                        break;
+                }
                 break;
-            case C_TONE:
-                soundIDs.add(soundPool.play(C_tone, 1, 1, 0, 0, 1));
+            case OCTAVE_3:
+                switch (sound) {
+                    case A_TONE:
+                        soundIDs.add(soundPool.play(sound_a_3, 1, 1, 0, 0, 1));
+                        break;
+                    case B_TONE:
+                        soundIDs.add(soundPool.play(sound_b_3, 1, 1, 0, 0, 1));
+                        break;
+                    case C_TONE:
+                        soundIDs.add(soundPool.play(sound_c_3, 1, 1, 0, 0, 1));
+                        break;
+                    case D_TONE:
+                        soundIDs.add(soundPool.play(sound_d_3, 1, 1, 0, 0, 1));
+                        break;
+                    case E_TONE:
+                        soundIDs.add(soundPool.play(sound_e_3, 1, 1, 0, 0, 1));
+                        break;
+                    case F_TONE:
+                        soundIDs.add(soundPool.play(sound_f_3, 1, 1, 0, 0, 1));
+                        break;
+                    case G_TONE:
+                        soundIDs.add(soundPool.play(sound_g_3, 1, 1, 0, 0, 1));
+                        break;
+                    case B_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_b_b_3, 1, 1, 0, 0, 1));
+                        break;
+                    case D_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_d_b_3, 1, 1, 0, 0, 1));
+                        break;
+                    case E_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_e_b_3, 1, 1, 0, 0, 1));
+                        break;
+                    case G_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_g_b_3, 1, 1, 0, 0, 1));
+                        break;
+                    case A_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_a_b_3, 1, 1, 0, 0, 1));
+                        break;
+                }
                 break;
-            case D_TONE:
-                soundIDs.add(soundPool.play(D_tone, 1, 1, 0, 0, 1));
+            case OCTAVE_4:
+                switch (sound) {
+                    case A_TONE:
+                        soundIDs.add(soundPool.play(sound_a_4, 1, 1, 0, 0, 1));
+                        break;
+                    case B_TONE:
+                        soundIDs.add(soundPool.play(sound_b_4, 1, 1, 0, 0, 1));
+                        break;
+                    case C_TONE:
+                        soundIDs.add(soundPool.play(sound_c_4, 1, 1, 0, 0, 1));
+                        break;
+                    case D_TONE:
+                        soundIDs.add(soundPool.play(sound_d_4, 1, 1, 0, 0, 1));
+                        break;
+                    case E_TONE:
+                        soundIDs.add(soundPool.play(sound_e_4, 1, 1, 0, 0, 1));
+                        break;
+                    case F_TONE:
+                        soundIDs.add(soundPool.play(sound_f_4, 1, 1, 0, 0, 1));
+                        break;
+                    case G_TONE:
+                        soundIDs.add(soundPool.play(sound_g_4, 1, 1, 0, 0, 1));
+                        break;
+                    case B_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_b_b_4, 1, 1, 0, 0, 1));
+                        break;
+                    case D_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_d_b_4, 1, 1, 0, 0, 1));
+                        break;
+                    case E_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_e_b_4, 1, 1, 0, 0, 1));
+                        break;
+                    case G_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_g_b_4, 1, 1, 0, 0, 1));
+                        break;
+                    case A_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_a_b_4, 1, 1, 0, 0, 1));
+                        break;
+                }
                 break;
-            case E_TONE:
-                soundIDs.add(soundPool.play(E_tone, 1, 1, 0, 0, 1));
+            case OCTAVE_5:
+                switch (sound) {
+                    case A_TONE:
+                        soundIDs.add(soundPool.play(sound_a_5, 1, 1, 0, 0, 1));
+                        break;
+                    case B_TONE:
+                        soundIDs.add(soundPool.play(sound_b_5, 1, 1, 0, 0, 1));
+                        break;
+                    case C_TONE:
+                        soundIDs.add(soundPool.play(sound_c_5, 1, 1, 0, 0, 1));
+                        break;
+                    case D_TONE:
+                        soundIDs.add(soundPool.play(sound_d_5, 1, 1, 0, 0, 1));
+                        break;
+                    case E_TONE:
+                        soundIDs.add(soundPool.play(sound_e_5, 1, 1, 0, 0, 1));
+                        break;
+                    case F_TONE:
+                        soundIDs.add(soundPool.play(sound_f_5, 1, 1, 0, 0, 1));
+                        break;
+                    case G_TONE:
+                        soundIDs.add(soundPool.play(sound_g_5, 1, 1, 0, 0, 1));
+                        break;
+                    case B_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_b_b_5, 1, 1, 0, 0, 1));
+                        break;
+                    case D_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_d_b_5, 1, 1, 0, 0, 1));
+                        break;
+                    case E_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_e_b_5, 1, 1, 0, 0, 1));
+                        break;
+                    case G_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_g_b_5, 1, 1, 0, 0, 1));
+                        break;
+                    case A_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_a_b_5, 1, 1, 0, 0, 1));
+                        break;
+                }
                 break;
-            case F_TONE:
-                soundIDs.add(soundPool.play(F_tone, 1, 1, 0, 0, 1));
+            case OCTAVE_6:
+                switch (sound) {
+                    case A_TONE:
+                        soundIDs.add(soundPool.play(sound_a_6, 1, 1, 0, 0, 1));
+                        break;
+                    case B_TONE:
+                        soundIDs.add(soundPool.play(sound_b_6, 1, 1, 0, 0, 1));
+                        break;
+                    case C_TONE:
+                        soundIDs.add(soundPool.play(sound_c_6, 1, 1, 0, 0, 1));
+                        break;
+                    case D_TONE:
+                        soundIDs.add(soundPool.play(sound_d_6, 1, 1, 0, 0, 1));
+                        break;
+                    case E_TONE:
+                        soundIDs.add(soundPool.play(sound_e_6, 1, 1, 0, 0, 1));
+                        break;
+                    case F_TONE:
+                        soundIDs.add(soundPool.play(sound_f_6, 1, 1, 0, 0, 1));
+                        break;
+                    case G_TONE:
+                        soundIDs.add(soundPool.play(sound_g_6, 1, 1, 0, 0, 1));
+                        break;
+                    case B_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_b_b_6, 1, 1, 0, 0, 1));
+                        break;
+                    case D_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_d_b_6, 1, 1, 0, 0, 1));
+                        break;
+                    case E_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_e_b_6, 1, 1, 0, 0, 1));
+                        break;
+                    case G_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_g_b_6, 1, 1, 0, 0, 1));
+                        break;
+                    case A_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_a_b_6, 1, 1, 0, 0, 1));
+                        break;
+                }
                 break;
-            case G_TONE:
-                soundIDs.add(soundPool.play(G_tone, 1, 1, 0, 0, 1));
-                break;
-            case A_SHARP_TONE:
-                soundIDs.add(soundPool.play(Asharp_tone, 1, 1, 0, 0, 1));
-                break;
-            case C_SHARP_TONE:
-                soundIDs.add(soundPool.play(Csharp_tone, 1, 1, 0, 0, 1));
-                break;
-            case D_SHARP_TONE:
-                soundIDs.add(soundPool.play(Dsharp_tone, 1, 1, 0, 0, 1));
-                break;
-            case F_SHARP_TONE:
-                soundIDs.add(soundPool.play(Fsharp_tone, 1, 1, 0, 0, 1));
-                break;
-            case G_SHARP_TONE:
-                soundIDs.add(soundPool.play(Gsharp_tone, 1, 1, 0, 0, 1));
+            case OCTAVE_7:
+                switch (sound) {
+                    case A_TONE:
+                        soundIDs.add(soundPool.play(sound_a_7, 1, 1, 0, 0, 1));
+                        break;
+                    case B_TONE:
+                        soundIDs.add(soundPool.play(sound_b_7, 1, 1, 0, 0, 1));
+                        break;
+                    case C_TONE:
+                        soundIDs.add(soundPool.play(sound_c_7, 1, 1, 0, 0, 1));
+                        break;
+                    case D_TONE:
+                        soundIDs.add(soundPool.play(sound_d_7, 1, 1, 0, 0, 1));
+                        break;
+                    case E_TONE:
+                        soundIDs.add(soundPool.play(sound_e_7, 1, 1, 0, 0, 1));
+                        break;
+                    case F_TONE:
+                        soundIDs.add(soundPool.play(sound_f_7, 1, 1, 0, 0, 1));
+                        break;
+                    case G_TONE:
+                        soundIDs.add(soundPool.play(sound_g_7, 1, 1, 0, 0, 1));
+                        break;
+                    case B_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_b_b_7, 1, 1, 0, 0, 1));
+                        break;
+                    case D_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_d_b_7, 1, 1, 0, 0, 1));
+                        break;
+                    case E_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_e_b_7, 1, 1, 0, 0, 1));
+                        break;
+                    case G_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_g_b_7, 1, 1, 0, 0, 1));
+                        break;
+                    case A_SHARP_TONE:
+                        soundIDs.add(soundPool.play(sound_a_b_7, 1, 1, 0, 0, 1));
+                        break;
+                }
                 break;
         }
     }
