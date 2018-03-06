@@ -3,12 +3,14 @@ package com.example.user.pianocode;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.MediaRecorder;
 import android.media.SoundPool;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -23,10 +26,15 @@ public class PIanoActivity extends AppCompatActivity {
 
     Button c, d_b, d, e_b, e, f, g_b, g, a_b, a, b_b, b;
 
+    //SoundPool
     private SoundPool soundPool;
     private int sound_c, sound_d_b, sound_d, sound_e_b, sound_e, sound_f, sound_g_b, sound_g,
             sound_a_b, sound_a, sound_b_b, sound_b;
     private ArrayList<Integer> soundIDs = new ArrayList<>();
+
+    //Media recording
+    MediaRecorder mRecorder = null;
+    private static String mFileName = null;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,12 +48,27 @@ public class PIanoActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.action_record){
             Toolbar m_toolbar = findViewById(R.id.toolbar3);
             m_toolbar.setTitle("Recording");
-            Toast.makeText(this, "Record not yet implemented",Toast.LENGTH_SHORT).show();
+            mRecorder = new MediaRecorder();
+            mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mRecorder.setOutputFile(mFileName);
+            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+            try {
+                mRecorder.prepare();
+            } catch (IOException e) {
+                //Empty
+            }
+
+            mRecorder.start();
         }
         if(item.getItemId() == R.id.action_stop_recording){
             Toolbar m_toolbar = findViewById(R.id.toolbar3);
             m_toolbar.setTitle("Playing");
-            Toast.makeText(this, "Stop recording not yet implemented",Toast.LENGTH_SHORT).show();
+            mRecorder.stop();
+            mRecorder.release();
+            mRecorder = null;
+            Toast.makeText(this, "Recording saved to " + mFileName, Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -57,6 +80,9 @@ public class PIanoActivity extends AppCompatActivity {
 
         Toolbar m_toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(m_toolbar);
+
+        mFileName = getExternalCacheDir().getAbsolutePath();
+        mFileName += "/audiorecordtest.3gp";
 
         m_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

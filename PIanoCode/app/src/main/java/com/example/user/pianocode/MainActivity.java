@@ -72,10 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void openManageRecord(View view){
 
-        Toast.makeText(this, "Manage Recordings not yet implemented",Toast.LENGTH_SHORT).show();
-
         // We need a new intent to open where this will be implemented
-        //Intent intent = new Intent(this, PIanoActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, RecordingManager.class);
+        startActivity(intent);
     }
 }

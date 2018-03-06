@@ -1016,5 +1016,4 @@ public class BluetoothChat extends AppCompatActivity {
         }
         return false;
     }
-
 }

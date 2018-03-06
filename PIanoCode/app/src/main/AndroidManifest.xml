@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.pianocode">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -56,8 +57,12 @@
         <activity
             android:name=".DeviceListActivity"
             android:label="@string/select_device"
-            android:theme="@android:style/Theme.Dialog"></activity>
-        <activity android:name=".RecordingManager"></activity>
+            android:theme="@android:style/Theme.Dialog">
+
+        </activity>
+        <activity android:name=".RecordingManager">
+
+        </activity>
     </application>
 
 </manifest>
