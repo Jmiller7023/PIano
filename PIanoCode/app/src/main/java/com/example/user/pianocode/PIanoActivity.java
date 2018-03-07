@@ -35,41 +35,63 @@ public class PIanoActivity extends AppCompatActivity {
     //Media recording
     MediaRecorder mRecorder = null;
     private static String mFileName = null;
+    private boolean mRecording = false;
+    private MenuItem mRecordButton = null;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater m_menuInflator = getMenuInflater();
         m_menuInflator.inflate(R.menu.piano_menu, menu);
+
+        mRecordButton = menu.findItem(R.id.action_record);
         return true;
+    }
+
+    private void startRecording(MenuItem item){
+
+        item.setIcon(R.drawable.ic_stop_black_24dp);
+
+        Toolbar m_toolbar = findViewById(R.id.toolbar3);
+        m_toolbar.setTitle("Recording");
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setOutputFile(mFileName);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            mRecorder.prepare();
+        } catch (IOException e) {
+            //Empty
+        }
+
+        mRecorder.start();
+    }
+
+    private void stopRecording(MenuItem item){
+
+        item.setIcon(R.drawable.ic_fiber_manual_record_black_24dp);
+
+        Toolbar m_toolbar = findViewById(R.id.toolbar3);
+        m_toolbar.setTitle("Playing");
+        mRecorder.stop();
+        mRecorder.release();
+        mRecorder = null;
+        Toast.makeText(this, "Recording saved to " + mFileName, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_record){
-            Toolbar m_toolbar = findViewById(R.id.toolbar3);
-            m_toolbar.setTitle("Recording");
-            mRecorder = new MediaRecorder();
-            mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mRecorder.setOutputFile(mFileName);
-            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-            try {
-                mRecorder.prepare();
-            } catch (IOException e) {
-                //Empty
+            if(!mRecording){
+                startRecording(item);
+                mRecording = true;
+            }else{
+                stopRecording(item);
+                mRecording = false;
             }
+        }
 
-            mRecorder.start();
-        }
-        if(item.getItemId() == R.id.action_stop_recording){
-            Toolbar m_toolbar = findViewById(R.id.toolbar3);
-            m_toolbar.setTitle("Playing");
-            mRecorder.stop();
-            mRecorder.release();
-            mRecorder = null;
-            Toast.makeText(this, "Recording saved to " + mFileName, Toast.LENGTH_SHORT).show();
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -96,6 +118,12 @@ public class PIanoActivity extends AppCompatActivity {
                 }
                 soundIDs.clear();
                 soundPool.release();
+
+                //Stop recording if we are
+                if(mRecording){
+                    stopRecording(mRecordButton);
+                }
+                mRecording = false;
 
                 //make it scroll left
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);

@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.MediaRecorder;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -40,6 +42,11 @@ public class BluetoothChat extends AppCompatActivity {
     // Debugging
     private static final String TAG = "BluetoothChat";
     private static final boolean D = true;
+
+    //Media recording
+    MediaRecorder mRecorder = null;
+    private static String mFileName = null;
+    private MenuItem mRecordButton = null;
 
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -72,7 +79,9 @@ public class BluetoothChat extends AppCompatActivity {
     // Member object for the chat services
     private BluetoothChatService mChatService = null;
 
+    private boolean mRecording = false;
 
+    //Sound constants
     public static final int A_TONE = 1;
     public static final int B_TONE = 2;
     public static final int C_TONE = 3;
@@ -324,6 +333,8 @@ public class BluetoothChat extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater m_menuInflator = getMenuInflater();
         m_menuInflator.inflate(R.menu.option_menu, menu);
+
+        mRecordButton = menu.findItem(R.id.action_record);
         return true;
     }
 
@@ -340,6 +351,10 @@ public class BluetoothChat extends AppCompatActivity {
         Toolbar m_toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(m_toolbar);
 
+        //Set up file path.
+        mFileName = getExternalCacheDir().getAbsolutePath();
+        mFileName += "/audiorecordtest.3gp";
+
         m_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -352,6 +367,12 @@ public class BluetoothChat extends AppCompatActivity {
                 }
                 soundIDs.clear();
                 soundPool.release();
+
+                //Stop recording if we are
+                if(mRecording){
+                    stopRecording(mRecordButton);
+                }
+                mRecording = false;
 
                 //make it scroll left
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
@@ -1001,6 +1022,39 @@ public class BluetoothChat extends AppCompatActivity {
         }
     }
 
+    private void startRecording(MenuItem item){
+
+        item.setIcon(R.drawable.ic_stop_black_24dp);
+
+        Toolbar m_toolbar = findViewById(R.id.toolbar3);
+        m_toolbar.setTitle("Recording");
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setOutputFile(mFileName);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            mRecorder.prepare();
+        } catch (IOException e) {
+            //Empty
+        }
+
+        mRecorder.start();
+    }
+
+    private void stopRecording(MenuItem item){
+
+        item.setIcon(R.drawable.ic_fiber_manual_record_black_24dp);
+
+        Toolbar m_toolbar = findViewById(R.id.toolbar3);
+        m_toolbar.setTitle("Playing");
+        mRecorder.stop();
+        mRecorder.release();
+        mRecorder = null;
+        Toast.makeText(this, "Recording saved to " + mFileName, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -1012,6 +1066,15 @@ public class BluetoothChat extends AppCompatActivity {
             case R.id.discoverable:
                 // Ensure this device is discoverable by others
                 ensureDiscoverable();
+                return true;
+            case R.id.action_record:
+                if(!mRecording){
+                    startRecording(item);
+                    mRecording = true;
+                }else{
+                    stopRecording(item);
+                    mRecording = false;
+                }
                 return true;
         }
         return false;

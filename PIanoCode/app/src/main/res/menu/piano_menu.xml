@@ -8,11 +8,4 @@
         android:icon="@drawable/ic_fiber_manual_record_black_24dp"
         app:showAsAction="ifRoom"/>
 
-    <item
-        android:id="@+id/action_stop_recording"
-        android:title="@string/piano_menu_stop_recording"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_stop_black_24dp"/>
-
-
 </menu>

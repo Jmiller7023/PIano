@@ -1,8 +1,10 @@
 package com.example.user.pianocode;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +20,22 @@ public class RecordingManager extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording_manager);
+
+        Toolbar m_toolbar = findViewById(R.id.toolbar2);
+        setSupportActionBar(m_toolbar);
+
+        m_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+
+                stopPlaying();
+
+                //make it scroll left
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+            }
+        });
 
         mFileName = getExternalCacheDir().getAbsolutePath();
         mFileName += "/audiorecordtest.3gp";
@@ -41,6 +59,12 @@ public class RecordingManager extends AppCompatActivity {
     }
 
     public void startPlaying() {
+
+        //Stop playing old sound before playing new one.
+        if(mPlayer != null){
+            mPlayer.release();
+            mPlayer = null;
+        }
         mPlayer = new MediaPlayer();
         try {
             mPlayer.setDataSource(mFileName);
@@ -52,7 +76,10 @@ public class RecordingManager extends AppCompatActivity {
     }
 
      public void stopPlaying() {
-        mPlayer.release();
-        mPlayer = null;
+        //Avoid null access.
+        if(mPlayer != null) {
+            mPlayer.release();
+            mPlayer = null;
+        }
     }
 }
