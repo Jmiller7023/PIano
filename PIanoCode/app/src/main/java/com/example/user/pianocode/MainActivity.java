@@ -1,7 +1,9 @@
 package com.example.user.pianocode;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +19,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        finish();
+        new AlertDialog.Builder(this)
+                .setTitle("Quit")
+                .setMessage("Really quit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     @Override
