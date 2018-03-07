@@ -16,6 +16,20 @@ public class RecordingManager extends AppCompatActivity {
     private MediaPlayer   mPlayer = null;
     private static String mFileName = null;
 
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        stopPlaying();
+
+        //make it scroll left
+        overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +48,8 @@ public class RecordingManager extends AppCompatActivity {
 
                 //make it scroll left
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+                finish();
             }
         });
 

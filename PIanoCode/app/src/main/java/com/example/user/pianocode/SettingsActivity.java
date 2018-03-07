@@ -13,6 +13,17 @@ public class SettingsActivity extends PreferenceActivity {
     private AppCompatDelegate mDelegate;
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        //make it scroll left
+        overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
@@ -31,6 +42,8 @@ public class SettingsActivity extends PreferenceActivity {
 
                 //make it scroll left
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+                finish();
             }
         });
     }

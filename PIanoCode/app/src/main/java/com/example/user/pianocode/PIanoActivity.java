@@ -96,6 +96,30 @@ public class PIanoActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+        //Stop all sounds
+        for(int i=0; i < soundIDs.size(); i++){
+            soundPool.stop(soundIDs.get(i));
+        }
+        soundIDs.clear();
+        soundPool.release();
+
+        //Stop recording if we are
+        if(mRecording){
+            stopRecording(mRecordButton);
+        }
+        mRecording = false;
+
+        //make it scroll left
+        overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_piano);
@@ -127,6 +151,8 @@ public class PIanoActivity extends AppCompatActivity {
 
                 //make it scroll left
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+                finish();
             }
         });
 

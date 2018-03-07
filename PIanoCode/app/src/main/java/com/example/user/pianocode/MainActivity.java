@@ -15,6 +15,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     @Override
+    public void onBackPressed() {
+
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -28,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), PIanoActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), BluetoothChat.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -66,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.action_setting){
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -75,5 +84,6 @@ public class MainActivity extends AppCompatActivity {
         // We need a new intent to open where this will be implemented
         Intent intent = new Intent(this, RecordingManager.class);
         startActivity(intent);
+        finish();
     }
 }
