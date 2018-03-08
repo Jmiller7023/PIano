@@ -672,29 +672,22 @@ public class BluetoothChat extends AppCompatActivity {
                             break;
                     }
                     break;
-                case MESSAGE_WRITE:
-                    byte[] writeBuf = (byte[]) msg.obj;
-                    // construct a string from the buffer
-                    String writeMessage = new String(writeBuf);
-                    //mConversationArrayAdapter.add("Me:  " + writeMessage);
-                    if(D) Log.e(TAG, "Sent: "+Integer.parseInt(writeMessage));
-                    try {
-                        synchronized(this){
-                            wait(20);
-                        }
-                    }
-                    catch(InterruptedException ex){
-                        //Empty
-                    }
-                    break;
                 case MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                    //mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
-                    if(D) Log.e(TAG, "Received: "+Integer.parseInt(readMessage));
 
-                    playSound(Integer.parseInt(readMessage.substring(0,2)), readMessage.substring(2,3));
+                    if(readMessage.equals("Record") && !mRecording){
+                        startRecording(mRecordButton);
+                        mRecording = true;
+                        Toast.makeText(getApplicationContext(), mConnectedDeviceName+": started a recording", Toast.LENGTH_SHORT).show();
+                    } else if(readMessage.equals("Stop") && mRecording){
+                        stopRecording(mRecordButton);
+                        mRecording =false;
+                        Toast.makeText(getApplicationContext(), mConnectedDeviceName+": stopped recording", Toast.LENGTH_SHORT).show();
+                    } else {
+                        playSound(Integer.parseInt(readMessage.substring(0, 2)), readMessage.substring(2, 3));
+                    }
                     break;
                 case MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -1071,9 +1064,11 @@ public class BluetoothChat extends AppCompatActivity {
                 return true;
             case R.id.action_record:
                 if(!mRecording){
+                    sendMessage("Record");
                     startRecording(item);
                     mRecording = true;
                 }else{
+                    sendMessage("Stop");
                     stopRecording(item);
                     mRecording = false;
                 }

@@ -1,5 +1,6 @@
 package com.example.user.pianocode;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -7,6 +8,7 @@ import android.media.MediaRecorder;
 import android.media.SoundPool;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -54,6 +56,7 @@ public class PIanoActivity extends AppCompatActivity {
         Toolbar m_toolbar = findViewById(R.id.toolbar3);
         m_toolbar.setTitle("Recording");
         mRecorder = new MediaRecorder();
+
         mRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mRecorder.setOutputFile(mFileName);
