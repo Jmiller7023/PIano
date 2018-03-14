@@ -20,9 +20,11 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
-    // Requesting permission to RECORD_AUDIO
+
+    // Requesting permissions
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+
 
     @Override
     public void onBackPressed() {
@@ -120,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         if (!permissionToRecordAccepted ) finish();
-
     }
 
 }
